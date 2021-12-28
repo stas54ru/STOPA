@@ -1,0 +1,447 @@
+{
+	"info": {
+		"_postman_id": "963675ac-730c-4841-94e9-b37ee3fbac8b",
+		"name": "YOYTRACK2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Project GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"Projects_ID\", jsonData[1].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"project\": {\r\n        \"id\": \"0-4\"\r\n    },\r\n    \"summary\": \"REST API STOPA\",\r\n    \"description\": \"Stas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/admin/projects?fields=id,name,shortName",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"projects"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id,name,shortName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ISSUE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"URL_issue\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"project\": {\r\n        \"id\": \"0-4\"\r\n    },\r\n    \"summary\": \"STOPA\",\r\n    \"description\": \"Stas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/issues/",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Переменная ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"project\": \r\n    {\"id\":\"{{Projects_ID}}\"\r\n    },\r\n    \"summary\":\"STOPA\",\r\n    \"description\":\"Stas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/issues/",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SUMMARY",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Summary test\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"        pm.expect(jsonData.summary).to.eql(\"STOPA\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/issues/2-801?fields=$type,id,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,avatarUrl,buildLink,color(id),fullName,id,isResolved,localizedName,login,minutes,name,presentation,text))",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						"2-801"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "$type,id,summary,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,avatarUrl,buildLink,color(id),fullName,id,isResolved,localizedName,login,minutes,name,presentation,text))"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "issue code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"State test\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.projectCustomField.field.name).to.eql(\"State\");\r",
+							"});\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/issues/2-801/customFields/107-30?fields=id,projectCustomField%28id,field%28id,name%29%29,value%28id,isResolved,localizedName,name%29",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						"2-801",
+						"customFields",
+						"107-30"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id,projectCustomField%28id,field%28id,name%29%29,value%28id,isResolved,localizedName,name%29"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Out state",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"State\", jsonData.bundle.values[2].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"project\": {\r\n        \"id\": \"0-4\"\r\n    },\r\n    \"summary\": \"REST API STOPA\",\r\n    \"description\": \"Stas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/admin/projects/0-4/customFields/107-30?fields=bundle(values(id,name,$type),aggregatedUsers(id,name,$type))",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"projects",
+						"0-4",
+						"customFields",
+						"107-30"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "bundle(values(id,name,$type),aggregatedUsers(id,name,$type))"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"    var jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"Transition\", jsonData.bundle.values[1].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customFields\": \r\n    {\r\n        \"name\": \"State\",\r\n        \"$type\": \"StateIssueCustomFields\",\r\n        \"value\": {\r\n            \"id\": \"{{Transition}}\"\r\n        }\r\n        \r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/admin/projects/0-4/customFields/107-30?fields=bundle(values(id,name,$type),aggregatedUsers(id,name,$type))",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"projects",
+						"0-4",
+						"customFields",
+						"107-30"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "bundle(values(id,name,$type),aggregatedUsers(id,name,$type))"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "INF",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://89.223.126.182:8080/api/issues/POSTMAN-81?fields=$type,id,summary,description,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,avatarUrl,buildLink,color(id),fullName,id,isResolved,localizedName,login,minutes,name,presentation,text))",
+					"protocol": "http",
+					"host": [
+						"89",
+						"223",
+						"126",
+						"182"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"issues",
+						"POSTMAN-81"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "$type,id,summary,description,customFields($type,id,projectCustomField($type,id,field($type,id,name)),value($type,avatarUrl,buildLink,color(id),fullName,id,isResolved,localizedName,login,minutes,name,presentation,text))"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Projects_ID",
+			"value": ""
+		},
+		{
+			"key": "URL_issue",
+			"value": ""
+		},
+		{
+			"key": "Transition",
+			"value": ""
+		},
+		{
+			"key": "Status",
+			"value": ""
+		},
+		{
+			"key": "State",
+			"value": ""
+		}
+	]
+}
